@@ -1,0 +1,41 @@
+name: Component
+description: Add a new component
+labels: ["Component 🧩", "Backlog"]
+projects: ["SyracuseUniversity/42"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a new Component!
+  - type: textarea
+    id: features
+    attributes:
+      label: Features
+      description: What are distinctions of this component
+      placeholder: Cool Things
+    validations:
+      required: true
+  - type: textarea
+    id: requirements
+    attributes:
+      label: Requirements
+      description: What are any required items?
+      placeholder: This is required
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: How will we know this is complete?
+      placeholder: It does this
+    validations:
+      required: true
+  - type: textarea
+    id: questions
+    attributes:
+      label: Questions
+      description: What do we not know that needs to be answered?
+      placeholder: Hmmmmm
+    validations:
+      required: true

@@ -1,0 +1,48 @@
+name: Create Release Tag
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - production
+
+jobs:
+  create-tag:
+    if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'release/')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # to be able to publish a GitHub release
+      issues: write # to be able to comment on released issues
+      pull-requests: write # to be able to comment on released pull requests
+      id-token: write # to enable use of OIDC for trusted publishing and npm provenance
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Python with git-cliff
+        uses: actions/setup-python@v6
+        with:
+          python-version: 3.13
+          pip-install: git-cliff
+      - name: Determine release version
+        id: get-version
+        run: |
+          release_version=$(git-cliff --bumped-version)
+          echo release_version=$release_version >> "$GITHUB_OUTPUT"
+          echo "Next release version is: $release_version"
+        env:
+          GITHUB_REPO: ${{ github.repository }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create and push tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG_VERSION: ${{ steps.get-version.outputs.release_version }}
+        run: |
+          git checkout production
+          git pull
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a "${TAG_VERSION}" -m "Release version ${TAG_VERSION}"
+          git push origin "${TAG_VERSION}"

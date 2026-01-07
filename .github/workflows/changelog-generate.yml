@@ -1,0 +1,65 @@
+name: Generate and Update Changelog.md
+on:
+  pull_request:
+    types: ["opened", "edited", "synchronize"]
+    branches:
+      - "production"
+
+env:
+  BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+
+permissions:
+  contents: read # for checkout
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # to be able to publish a GitHub release
+      issues: write # to be able to comment on released issues
+      pull-requests: write # to be able to comment on released pull requests
+      id-token: write # to enable use of OIDC for trusted publishing and npm provenance
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Python with git-cliff
+        uses: actions/setup-python@v6
+        with:
+          python-version: 3.13
+          pip-install: git-cliff
+      - name: Determine release version
+        id: get-version
+        run: |
+          release_version=$(git-cliff --bumped-version)
+          echo release_version=$release_version >> "$GITHUB_OUTPUT"
+          echo "Next release version is: $release_version"
+        env:
+          GITHUB_REPO: ${{ github.repository }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Update CHANGELOG
+        env:
+          RELEASE_VERSION: ${{ steps.get-version.outputs.release_version }}
+          GITHUB_REPO: ${{ github.repository }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          changelog_text=$(git-cliff --bump --unreleased)
+          {
+            head -n 2 CHANGELOG.md
+            echo "$changelog_text"
+            echo
+            tail -n +3 CHANGELOG.md
+          } > CHANGELOG.tmp && mv CHANGELOG.tmp CHANGELOG.md
+
+      # Commit changes to CHANGELOG.md
+      - name: Commit
+        run: |
+          git checkout ${{ env.BRANCH_NAME }}
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          set +e
+          git add CHANGELOG.md
+          git commit -m "ci: Update changelog"
+          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git ${{ env.BRANCH_NAME }}
