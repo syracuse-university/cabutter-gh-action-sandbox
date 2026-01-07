@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.0](https://github.com/SyracuseUniversity/su-033-cabutter-github-action-sandbox/compare/v0.1.0..v0.2.0) - 2026-01-07
+
+### Features
+
+- Remove content - ([755a0ef](https://github.com/SyracuseUniversity/su-033-cabutter-github-action-sandbox/commit/755a0efd03e416e5e49f26b23518163d75088afa))
+
 ## [0.1.0] - 2026-01-07
 
 ### Bug Fixes
