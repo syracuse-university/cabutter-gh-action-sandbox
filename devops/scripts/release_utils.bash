@@ -27,7 +27,7 @@ function create_tag {
   echo "Tag created and pushed successfully!"
 }
 
-function set_change_log_text {
+function set_changelog_text {
   CHANGELOG_TEXT=$(git-cliff --bump --unreleased)
 }
 
@@ -40,3 +40,8 @@ function append_changelog_text {
     tail -n +3 CHANGELOG.md
   } >CHANGELOG.tmp && mv CHANGELOG.tmp CHANGELOG.md
 }
+
+# Only run when executed directly, not when sourced
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+  time "${@}"
+fi
