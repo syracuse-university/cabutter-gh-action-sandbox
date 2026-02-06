@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 
-# Color codes
-readonly COLOR_RED='\033[0;31m'
-readonly COLOR_GREEN='\033[0;32m'
-readonly COLOR_YELLOW='\033[1;33m'
-readonly COLOR_BLUE='\033[0;34m'
-readonly COLOR_GRAY='\033[0;90m'
-readonly COLOR_RESET='\033[0m'
+# Color codes (only define if not already set)
+if [[ -z "${COLOR_RED:-}" ]]; then
+  readonly COLOR_RED='\033[0;31m'
+  readonly COLOR_GREEN='\033[0;32m'
+  readonly COLOR_YELLOW='\033[1;33m'
+  readonly COLOR_BLUE='\033[0;34m'
+  readonly COLOR_GRAY='\033[0;90m'
+  readonly COLOR_RESET='\033[0m'
+fi
 
 # Logging functions
 function log_info {
@@ -44,7 +46,7 @@ function yes_or_no {
     case $yn in
     [Yy]*) return 0 ;;
     [Nn]*)
-      echo "Aborted"
+      echo -e "${COLOR_RED}Aborted${COLOR_RESET}"
       return 1
       ;;
     esac
