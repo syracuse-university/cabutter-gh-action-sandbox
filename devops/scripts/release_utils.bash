@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# add functions
+SCRIPT_DIR="$(dirname "${BASH_SOURCE[0]}")"
+source "${SCRIPT_DIR}/utils.bash"
+
 function set_release_version {
   RELEASE_VERSION=$(git-cliff --bumped-version)
 }
