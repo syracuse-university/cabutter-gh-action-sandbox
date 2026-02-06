@@ -1,20 +1,5 @@
 # Changelog
 
-## [0.3.0](https://github.com/SyracuseUniversity/su-033-cabutter-github-action-sandbox/compare/v0.2.0..v0.3.0) - 2026-02-06
-
-### Features
-
-- *(ci)* Add local workflow for generating releases - ([1011924](https://github.com/SyracuseUniversity/su-033-cabutter-github-action-sandbox/commit/10119244d0eb881b762f045948a7691f577c8585))
-
-### Bug Fixes
-
-- Release_util.bash functions - ([33ca3ac](https://github.com/SyracuseUniversity/su-033-cabutter-github-action-sandbox/commit/33ca3ac573d05e3759d5a81bb42f1e36b840bdaf))
-
-### Miscellaneous Tasks
-
-- More changelog cleanup - ([1d08e42](https://github.com/SyracuseUniversity/su-033-cabutter-github-action-sandbox/commit/1d08e4272213f77ed02e700a719b6d2bbcde6079))
-- Update changelog - ([05d1271](https://github.com/SyracuseUniversity/su-033-cabutter-github-action-sandbox/commit/05d127130b462345e369b937ce7bccc60156b022))
-
 ## [0.2.0](https://github.com/SyracuseUniversity/su-033-cabutter-github-action-sandbox/compare/v0.1.0..v0.2.0) - 2026-01-07
 
 ### Features
