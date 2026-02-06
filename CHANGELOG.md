@@ -1,7 +1,5 @@
 # Changelog
 
-
-
 ## [0.2.0](https://github.com/SyracuseUniversity/su-033-cabutter-github-action-sandbox/compare/v0.1.0..v0.2.0) - 2026-01-07
 
 ### Features
@@ -12,7 +10,7 @@
 
 ### Bug Fixes
 
-- *(build)* Add an initial tag that matches tag pattern - ([9ddb101](https://github.com/SyracuseUniversity/su-033-cabutter-github-action-sandbox/commit/9ddb10168658733269c02bfe5c30e9565b5f1368))
+- _(build)_ Add an initial tag that matches tag pattern - ([9ddb101](https://github.com/SyracuseUniversity/su-033-cabutter-github-action-sandbox/commit/9ddb10168658733269c02bfe5c30e9565b5f1368))
 - Remove default values for git-cliff bump - ([9402566](https://github.com/SyracuseUniversity/su-033-cabutter-github-action-sandbox/commit/940256606170985efc3bd836e4336853e40e5c76))
 
 ### Miscellaneous Tasks
