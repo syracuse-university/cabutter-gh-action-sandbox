@@ -1,10 +1,5 @@
 name: Generate and Update Changelog.md
-on:
-  pull_request:
-    types: ["opened", "edited", "synchronize"]
-    branches:
-      - "production"
-
+on: workflow_dispatch
 env:
   BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
 
@@ -25,7 +20,17 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Run Release Workflow
+      - name: Import Utils
         run: |
-          ./devops/scripts/run-local.bash
-          echo "did it"
+          source ./devops/scripts/utils.bash
+          source ./devops/scripts/release_utils.bash
+      - name: Create Pull requests
+        run: |
+          RELEASE_VERSION=$(get_release_version)
+          RELEASE_BRANCH_NAME=release/${RELEASE_VERSION}
+          git checkout -b RELEASE_BRANCH_NAME
+          append_changelog_text
+          stage_and_commit_release_files 
+          gh pr create -H ${RELEASE_BRANCH_NAME} --title "build: ${RELEASE_VERSION}" --body 'Created by Github action'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
