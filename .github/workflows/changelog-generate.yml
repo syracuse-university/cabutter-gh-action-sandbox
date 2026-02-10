@@ -20,12 +20,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Import Utils
+      - name: Create Pull requests
         run: |
           source ./devops/scripts/utils.bash
           source ./devops/scripts/release_utils.bash
-      - name: Create Pull requests
-        run: |
           RELEASE_VERSION=$(get_release_version)
           RELEASE_BRANCH_NAME=release/${RELEASE_VERSION}
           git checkout -b RELEASE_BRANCH_NAME
