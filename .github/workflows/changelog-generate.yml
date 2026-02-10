@@ -31,11 +31,11 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
       - name: Create Pull requests
         run: |
+          git checkout -b $RELEASE_BRANCH_NAME &&
           source ./devops/scripts/utils.bash
           source ./devops/scripts/release_utils.bash
           RELEASE_VERSION=$(get_release_version)
           RELEASE_BRANCH_NAME=release/${RELEASE_VERSION}
-          git checkout -b $RELEASE_BRANCH_NAME
           append_changelog_text
           stage_and_commit_release_files 
           gh pr create -H ${RELEASE_BRANCH_NAME} --title "build: ${RELEASE_VERSION}" --body 'Created by Github action'
