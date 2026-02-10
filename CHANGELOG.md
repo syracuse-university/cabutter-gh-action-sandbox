@@ -1,5 +1,29 @@
 # Changelog
 
+## [0.3.0](https://github.com/SyracuseUniversity/su-033-cabutter-github-action-sandbox/compare/v0.2.0..v0.3.0) - 2026-02-06
+
+### Features
+
+- *(ci)* Add local workflow for generating releases - ([1011924](https://github.com/SyracuseUniversity/su-033-cabutter-github-action-sandbox/commit/10119244d0eb881b762f045948a7691f577c8585))
+- Checkpoint for commiting changelog - ([47f3bb5](https://github.com/SyracuseUniversity/su-033-cabutter-github-action-sandbox/commit/47f3bb5f5bde105c047cceee7ac47de27184a2ff))
+- Utils.bash for common bash utilities - ([fde93d6](https://github.com/SyracuseUniversity/su-033-cabutter-github-action-sandbox/commit/fde93d6b2aa207759c13286bae8835fea0450833))
+- Line of content - ([cb70dba](https://github.com/SyracuseUniversity/su-033-cabutter-github-action-sandbox/commit/cb70dba93ba78be6e274b3e97dddac35d719534e))
+
+### Bug Fixes
+
+- Changelog got broke - ([a10bf58](https://github.com/SyracuseUniversity/su-033-cabutter-github-action-sandbox/commit/a10bf58f2ef5507093b3c2214c700d91b6318439))
+- Don't set colors again if the script is re-sourced - ([b57ba09](https://github.com/SyracuseUniversity/su-033-cabutter-github-action-sandbox/commit/b57ba0931e28084a8870654c7e3803e2b3099ee4))
+- Release_util.bash functions - ([33ca3ac](https://github.com/SyracuseUniversity/su-033-cabutter-github-action-sandbox/commit/33ca3ac573d05e3759d5a81bb42f1e36b840bdaf))
+
+### Build/Dependencies
+
+- Bump v0.3.0 - ([568a8a0](https://github.com/SyracuseUniversity/su-033-cabutter-github-action-sandbox/commit/568a8a091e897f57c301ae68b1826e80ad3369f3))
+
+### Miscellaneous Tasks
+
+- More changelog cleanup - ([1d08e42](https://github.com/SyracuseUniversity/su-033-cabutter-github-action-sandbox/commit/1d08e4272213f77ed02e700a719b6d2bbcde6079))
+- Update changelog - ([05d1271](https://github.com/SyracuseUniversity/su-033-cabutter-github-action-sandbox/commit/05d127130b462345e369b937ce7bccc60156b022))
+
 ## [0.2.0](https://github.com/SyracuseUniversity/su-033-cabutter-github-action-sandbox/compare/v0.1.0..v0.2.0) - 2026-01-07
 
 ### Features

@@ -4,8 +4,8 @@
 SCRIPT_DIR="$(dirname "${BASH_SOURCE[0]}")"
 source "${SCRIPT_DIR}/utils.bash"
 
-function set_release_version {
-  RELEASE_VERSION=$(git-cliff --bumped-version)
+function get_release_version {
+  git-cliff --bumped-version
 }
 
 function create_tag {
@@ -13,36 +13,44 @@ function create_tag {
   git checkout production
 
   git remote -v
-  echo "Pulling latest changes..."
+  log_info "Pulling latest changes..."
   git pull
 
-  echo "Determining release version..."
-  set_release_version
-  echo "Next release version is: $RELEASE_VERSION"
+  log_info "Determining release version..."
+  local release_version=get_release_version
+  log_info "Next release version is: $release_version"
 
-  echo "Configuring git..."
+  log_info "Configuring git..."
   git config user.name "github-actions[bot]"
   git config user.email "github-actions[bot]@users.noreply.github.com"
 
-  echo "Creating and pushing tag: $RELEASE_VERSION"
-  git tag -a "${RELEASE_VERSION}" -m "Release version ${RELEASE_VERSION}"
-  git push origin "${RELEASE_VERSION}"
+  log_info "Creating and pushing tag: $release_version"
+  git tag -a "${release_version}" -m "Release version ${release_version}"
+  git push origin "${release_version}"
 
-  echo "Tag created and pushed successfully!"
+  log_success "Tag created and pushed successfully!"
 }
 
-function set_changelog_text {
-  CHANGELOG_TEXT=$(git-cliff --bump --unreleased)
+function get_changelog_text {
+  git-cliff --bump --unreleased
 }
 
 function append_changelog_text {
-  set_changelog_text
+  local changelog_text=get_changelog_text
   {
     head -n 2 CHANGELOG.md
-    echo "$CHANGELOG_TEXT"
+    echo "$changelog_text"
     echo
     tail -n +3 CHANGELOG.md
   } >CHANGELOG.tmp && mv CHANGELOG.tmp CHANGELOG.md
+}
+
+function stage_and_commit_release_files {
+  local release_version=set_release_version 
+  git add CHANGELOG.md
+  git commit -m "ci: Update changelog"
+  git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git ${{ env.BRANCH_NAME }}
+
 }
 
 # Only run when executed directly, not when sourced
